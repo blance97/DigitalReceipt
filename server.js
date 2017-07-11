@@ -12,6 +12,7 @@ var app = express();
 
 app.use(bodyParser.json());
 
+app.use(express.static(path.join(__dirname, 'client/build')));
 app.use('/api/customers', customers);
 app.use('/api/companies', companies);
 app.use('/api/auth', auth);
