@@ -19,8 +19,12 @@ router.get('/getReceipts/', (req, res) => {
     db.query(query, (err, result) => {
         if (err) {
             res.status(500).json({ error: err });
+            return;
         }
         console.log(result);
+        if(!result){
+            res.statusCode(404);
+        }
         const createReceipts = () => {
             let jsonData = [];
             const items = (element, i, inputArray) => {

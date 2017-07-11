@@ -19,11 +19,11 @@ app.use('/api/item', item);
 app.use('/api/receipt', receipt);
 app.use('/api/inventory', inventory);
 
-db.query("INSERT IGNORE INTO customer (id, fname,lname,email) VALUES(-1,'','','No Info Provided');");
 
 var port = 8080;
 
 app.listen(port, '0.0.0.0', function (error) {
   if (error) throw error;
+  db.query("INSERT IGNORE INTO customer (id, fname,lname,email) VALUES(-1,'','','No Info Provided');");
   console.log('Express server listening on port', port);
 });
