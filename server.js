@@ -20,9 +20,9 @@ app.use('/api/receipt', receipt);
 app.use('/api/inventory', inventory);
 
 
-var port = 8080;
+var port = 5000;
 
-app.listen(port, '0.0.0.0', function (error) {
+app.listen(process.env.PORT || port, function (error) {
   if (error) throw error;
   db.query("INSERT IGNORE INTO customer (id, fname,lname,email) VALUES(-1,'','','No Info Provided');");
   console.log('Express server listening on port', port);
