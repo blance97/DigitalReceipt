@@ -44,5 +44,12 @@
     "style-loader": "^0.18.2",
     "svg-inline-loader": "^0.7.1",
     "url-loader": "^0.5.9"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react",
+      "stage-2"
+    ]
   }
 }
