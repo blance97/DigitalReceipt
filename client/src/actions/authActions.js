@@ -35,11 +35,7 @@ export function login(data) {
       const token = res.data.token;
       setAuthorizationToken(token);
       dispatch(setCurrentUser(jwtDecode(token), false));
-    }).catch((err) => {
-      setTimeout(() => {
-        dispatch(setCurrentUser({}, false));
-      }, 2000);
-    });
+    })
   }
 }
 

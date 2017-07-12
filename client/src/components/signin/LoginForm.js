@@ -55,6 +55,7 @@ class LoginForm extends Component {
         if (this.isValid.bind(this)) {
             this.setState({ error: {}, isLoading: true }); //clear errors
             this.props.login(this.state).then((res) => {
+                console.log("true");
                 this.setState({ redirect: true })
             })
                 .catch((error) => {

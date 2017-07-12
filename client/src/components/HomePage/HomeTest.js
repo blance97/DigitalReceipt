@@ -1,17 +1,17 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
-import {Card, Icon, Statistic, Divider, Feed} from 'semantic-ui-react';
-import {Modal} from 'react-bootstrap';
-import {getMostPopularItems, viewReceipts} from '../../actions/viewReceiptsActions';
-import {populateList} from '../../actions/ItemActions';
-import {getCustomerList} from '../../actions/customerActions';
-import {verifyInit} from '../../actions/authActions';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { Card, Icon, Statistic, Divider, Feed } from 'semantic-ui-react';
+import { Modal } from 'react-bootstrap';
+import { getMostPopularItems, viewReceipts } from '../../actions/viewReceiptsActions';
+import { populateList } from '../../actions/ItemActions';
+import { getCustomerList } from '../../actions/customerActions';
+import { verifyInit } from '../../actions/authActions';
 import moment from 'moment';
 import InitForm from './InitForm';
 
 class HomePage extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       percentage: 0,
@@ -28,28 +28,22 @@ class HomePage extends Component {
       .bind(this);
   }
 
-  componentDidMount () {
-    this
-      .props
-      .verifyInit(this.props.companyID)
-      .then((res) => {
-        console.log(res);
-        if (res.data.result.init === 0) {
-          this.setState({initModal: true});
-        } else {
-          this.setState({initModal: false});
-        }
-      });
+  componentDidMount() {
+    this.props.verifyInit(this.props.companyID).then((res) => {
+      console.log(res);
+      if (res.data.result.init === 0) {
+        this.setState({ initModal: true });
+      } else {
+        this.setState({ initModal: false });
+      }
+    });
 
-    if (this.props.customers.length === 0) {
-      this
-        .props
-        .getCustomerList(this.props.companyID)
-        .then(() => {
-          this.mostFrequentCustomer();
-        });
-    }
-    this.mostFrequentCustomer(); // runn again even if list istn empty
+
+    this.props.getCustomerList(this.props.companyID).then(() => {
+      this.mostFrequentCustomer();
+    });
+
+
 
     if (this.props.items.length === 0) {
       this
@@ -78,11 +72,11 @@ class HomePage extends Component {
         this.mostRecentReceipts();
       });
   }
-  componentWillUnmount () {
+  componentWillUnmount() {
     clearInterval(this.thingy);
   }
 
-  mostRecentReceipts () {
+  mostRecentReceipts() {
     this.setState({
       feedData: this
         .props
@@ -96,8 +90,8 @@ class HomePage extends Component {
               <Feed.Event
                 icon='file text'
                 date={moment(element.issueDate)
-                .local()
-                .fromNow()}
+                  .local()
+                  .fromNow()}
                 summary={'Receipt ' + element.uniqueID + ' Cost: ' + element.totalCost} />
               <Divider fitted />
             </Feed>
@@ -107,7 +101,7 @@ class HomePage extends Component {
     });
   }
 
-  mostSoldItems () {
+  mostSoldItems() {
     this.setState({
       mostSoldItems: this
         .props
@@ -140,7 +134,7 @@ class HomePage extends Component {
     });
   }
 
-  mostFrequentCustomer () {
+  mostFrequentCustomer() {
     this.setState({
       mostFrequentCustomer: this
         .props
@@ -164,19 +158,19 @@ class HomePage extends Component {
     });
   }
 
-  numberWithCommas (x) {
+  numberWithCommas(x) {
     return x
       .toString()
       .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
 
-  closeCompanyInfo () {
-    this.setState({initModal: false});
+  closeCompanyInfo() {
+    this.setState({ initModal: false });
   }
-  render () {
+  render() {
     return (
       <div className='jumbotron'>
-        <div style={{marginTop: '-50px'}}>
+        <div style={{ marginTop: '-50px' }}>
           <h1>{this.props.companyName}'s Dashboard</h1>
           <Statistic style={{
             marginTop: '-50px'
@@ -191,7 +185,7 @@ class HomePage extends Component {
             <Statistic.Label>Items Sold</Statistic.Label>
           </Statistic>
         </div> <p> Overview and General Info </p>
-        <Divider horizontal fitted>Dashboard</Divider > <div className='row' style={{marginTop: '10px'}}>
+        <Divider horizontal fitted>Dashboard</Divider > <div className='row' style={{ marginTop: '10px' }}>
           <div className='col-lg-3'>
             <Card
               as={Link}
@@ -216,7 +210,7 @@ class HomePage extends Component {
             <Card
               as={Link}
               to='/createReceipt'
-              style={{backgroundColor: 'rgba(253, 245, 230, .5)', height: '150px'}} >
+              style={{ backgroundColor: 'rgba(253, 245, 230, .5)', height: '150px' }} >
               <Card.Content>
                 <center><Icon name='file text outline' size='huge' /></center>
                 <Card.Header>
@@ -233,13 +227,13 @@ class HomePage extends Component {
             <Card
               as={Link}
               to='/customer'
-              style={{backgroundColor: 'rgba(253, 245, 230, .5)', height: '150px'}}>
+              style={{ backgroundColor: 'rgba(253, 245, 230, .5)', height: '150px' }}>
               <Card.Content>
                 <center><Icon name='users' size='huge' /></center>
                 <center>
                   <h2>{this.props.customers.length - 1 === -1
-                      ? 0
-                      : this.props.customers.length - 1}</h2>
+                    ? 0
+                    : this.props.customers.length - 1}</h2>
                 </center>
                 <Card.Header>
                   Registered Customers
@@ -249,7 +243,7 @@ class HomePage extends Component {
           </div>
           <div className='col-lg-3'>
             <Card
-              style={{backgroundColor: 'rgba(0, 178, 0, .6)', height: '150px'}}>
+              style={{ backgroundColor: 'rgba(0, 178, 0, .6)', height: '150px' }}>
               <Card.Content>
                 <center><Icon inverted name='dollar' size='huge' /></center>
                 <center>
@@ -335,7 +329,7 @@ class HomePage extends Component {
     );
   }
 }
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
     companyName: state.auth.company.companyName,
     companyID: state.auth.company.id,

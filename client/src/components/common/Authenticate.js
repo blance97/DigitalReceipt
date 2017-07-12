@@ -16,7 +16,9 @@ export default function (ComposedComponent) {
             // });
         }
         componentWillMount() {
-            if (!this.props.isAuthenticated) {
+            console.log("Mounted");
+            if (!this.props.isAuthenticated) { 
+                console.log("componenet ", ComposedComponent);
                 this.props.addFlashMessage({
                     type: 'error',
                     text: "Please Login"
