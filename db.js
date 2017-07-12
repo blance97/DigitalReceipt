@@ -1,19 +1,24 @@
 // Update with your config settings.
-
-
 var mysql = require('mysql');
-//mysql://wmvp5fn20iwq6ews:at0m8emo33f1feam@erxv1bzckceve5lh.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/k03xx72ahzfsd3ag
+import { databaseConfig } from './configDB';
+const prodDB = true;
+let connect = {};
+let name = "";
+if (prodDB) {
+  connect = databaseConfig.Prod;
+  name = "Production Database";
+} else {
+  connect = databaseConfig.Dev;
+  name = "Development Database"
+}
 var connection = mysql.createConnection({
-  host: "erxv1bzckceve5lh.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-  user: "wmvp5fn20iwq6ews",
-  password: "at0m8emo33f1feam",
-  database: "k03xx72ahzfsd3ag",
+  ...connect,
   multipleStatements: true,
 });
 
 connection.connect(function (err) {
   if (err) throw err;
-  console.log("Connected!");
+  console.log(`Connected to ${name}!`);
 });
 export default connection;
 
