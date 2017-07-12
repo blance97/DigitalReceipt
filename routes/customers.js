@@ -93,7 +93,7 @@ router.get('/', authenticate, (req, res) => {
                 }, [])
                 let query = ""
                 CustomerIDs.forEach((id) => {
-                    query += mysql.format(`SELECT IFNULL(COUNT(*), 0) as timesVisited,COALESCE(sum(qty),0) as itemsBought ,customerID FROM receiptView WHERE customerID=?;`, [id]);
+                    query += mysql.format(`SELECT IFNULL(COUNT(*), 0) as timesVisited,COALESCE(sum(qty),0) as itemsBought ,customerID FROM receiptview WHERE customerID=?;`, [id]);
                 }); // this query is nasty.  Returns count based off receipt so if the customer is not attached to a receit the customerid is null.
                 try {
                     db.query(query, (err, result) => {
