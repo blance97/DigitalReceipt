@@ -12,7 +12,7 @@ router.get('/getReceipts/', (req, res) => {
     var id = req.query.ID
     console.log("ID: ", id);
     let query = mysql.format(`SELECT receiptID, itemCost, customerID,CONCAT(fname,' ',lname, ' (',email,')') as customerName, itemID,itemName, qty, issuedDate 
-                                FROM receiptView
+                                FROM receiptview
                                     JOIN customer as C
                                         ON customerID = C.id
                                 WHERE companyID = ?;`, [id]);
@@ -129,7 +129,7 @@ router.post("/getmostPopular", (req, res) => {
     }
     let query = "";
     req.body.forEach((element) => {
-        query += mysql.format("SELECT SUM(itemCost*qty) as profit,itemName,itemID,SUM(qty) as totalSold FROM receiptView WHERE itemID= ? GROUP BY itemName,itemID;", [element.id]);
+        query += mysql.format("SELECT SUM(itemCost*qty) as profit,itemName,itemID,SUM(qty) as totalSold FROM receiptview WHERE itemID= ? GROUP BY itemName,itemID;", [element.id]);
     })
     console.log(query);
     db.query(query, (err, result) => {
