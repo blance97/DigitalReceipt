@@ -11,6 +11,8 @@ var customers = require('./routes/customers');
 var app = express();
 
 app.use(bodyParser.json());
+
+app.use(express.static(path.join(__dirname, 'client/build')));
 app.use('/api/customers', customers);
 app.use('/api/companies', companies);
 app.use('/api/auth', auth);
@@ -21,7 +23,9 @@ app.use('/api/inventory', inventory);
 
 const port = process.env.PORT || 5000;
 
-
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/build/index.html'));
+});
 
 app.listen(port, function (error) {
   if (error) throw error;
