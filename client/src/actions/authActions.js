@@ -16,14 +16,13 @@ export function logout() {
     localStorage.removeItem('jwtToken');
     setAuthorizationToken(false);
     dispatch(setCurrentUser({}, false));
+    dispatch(clearState());
   };
 }
 
 export function clearState() {
-  return dispatch => {
-    dispatch({
-      type: LOGOUT
-    })
+  return {
+    type: LOGOUT
   }
 }
 
