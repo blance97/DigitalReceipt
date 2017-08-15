@@ -7,14 +7,18 @@ class Greetings extends Component {
             <div>
                 <div className="jumbotron jumbotron-fluid">
                     <h1 className="display-3">Hello, world!</h1>
-                    <p className="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                    <p className="lead">This is a web based management and inventory system. It is very inituitive and helpful. </p>
                     <hr className="my-4"></hr>
-                    <p>It uses utility class for typography and spacing to space content out within the larger container.</p>
+                    <p>To start, just create an account and sign in. You will then be able to add items and track the progression of the sales.</p>
                     <p className="lead">
-                        <a className="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                        <a className="btn btn-primary btn-lg" href="/signup" role="button">Sign Up</a>
                     </p>
+                    <p>Created By Lance Dinh</p>
                 </div>
-                <Cards/>
+                <hr className="my-4"></hr>
+                <center><h2 className="display-3">Product Example</h2></center>
+                <hr className="my-4"></hr>
+                <Cards />
             </div>
         )
     }
